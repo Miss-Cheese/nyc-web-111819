@@ -2,13 +2,6 @@ import React from 'react';
 
 class Navbar extends React.Component {
 
-    // how to access the state of the filter from here? this.props doesn't work
-    // input field will have a value attribute, which will render the state
-    // on change props.changeFinter function will take the state as an argument
-    // in render currently the filter only works for the bathroom type 
-    
-    debugger
-
     render() {
         // {console.log(this.props.nameSearch)}
         return (

@@ -12,7 +12,6 @@ class App extends React.Component {
   }
 
   handleAddReview = (reviewInfo) => {
-    // using map to find a single object in an array of objects and make some change JUST TO THAT ONE 
     let newBathrooms = this.state.bathrooms.map(bathroom => {
       if(bathroom.id === reviewInfo.bathroomId){
           bathroom.reviews.push(reviewInfo)
@@ -44,7 +43,6 @@ class App extends React.Component {
   }
 
   render(){
-
     
     let displayedBathrooms = [...this.state.bathrooms]
 
@@ -53,7 +51,6 @@ class App extends React.Component {
       }
       
     displayedBathrooms = displayedBathrooms.filter(bathroom => bathroom.type.includes(this.state.filter))
-    
 
     return (
       <div className="App">

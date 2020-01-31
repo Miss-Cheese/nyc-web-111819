@@ -7,7 +7,8 @@ class App extends React.Component {
 
   state = {
     bathrooms: [],
-    filter: ''
+    filter: '',
+    nameSearch: ''
   }
 
   handleAddReview = (reviewInfo) => {
@@ -26,6 +27,14 @@ class App extends React.Component {
     this.setState({ filter: newFilter})
   }
 
+  settingNameSearchAsState = (event) => {
+    this.setState({
+      nameSearch: event.target.value.toLowerCase()
+    })
+  }
+
+  
+
   getBathrooms = () => {
     fetch('http://localhost:3000/bathrooms?_embed=reviews')
       .then(res => res.json())
@@ -35,15 +44,22 @@ class App extends React.Component {
   }
 
   render(){
+
+    
     let displayedBathrooms = [...this.state.bathrooms]
+
+      if (this.state.nameSearch) {
+        displayedBathrooms = displayedBathrooms.filter(bathroom => bathroom.location.toLowerCase().includes(this.state.nameSearch))
+      }
+      
     displayedBathrooms = displayedBathrooms.filter(bathroom => bathroom.type.includes(this.state.filter))
-    console.log(displayedBathrooms)
+    
 
     return (
       <div className="App">
         <h1>Royal 👑 Flush</h1>
         <button className="filter-item" onClick={this.getBathrooms}>Flush!</button>
-        <Navbar changeFilter={this.changeFilter} />
+        <Navbar changeFilter={this.changeFilter} nameSearch={this.state.nameSearch} settingNameSearchAsState={this.settingNameSearchAsState}/>
         {this.state.bathrooms.length === 0 && <div>press flush</div>}
         {displayedBathrooms.map(({id, location, image, type, reviews}) => (
           <BathroomCard 
